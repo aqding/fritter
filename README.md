@@ -4,7 +4,7 @@ Build your own not-quite-[Twitter](https://twitter.com/)!
 
 ## Starter Code
 
-  This starter code implements users (with login/sessions), and freets so that you may focus on implementing your own design ideas.
+This starter code implements users (with login/sessions), and freets so that you may focus on implementing your own design ideas.
 
 The project is structured as follows:
 
@@ -313,3 +313,184 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+#### `POST /api/follow` - Create a following relation
+
+**Body**
+
+- `follower` _{userId}_ - The follower's user ID
+- `followee` _{userId}_ - The followee's user ID
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `400` if follower and followee are not in the right format or not in req
+- `404` if either userId is not valid
+- `405` if the following relation already exists
+
+#### `DELETE /api/follow` - Deletes a following relation
+
+**Body**
+
+- `follower` _{userId}_ - The follower's user ID
+- `followee` _{userId}_ - The followee's user ID
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `400` if follower and followee are not in the right format or not in req
+- `404` if either userId is not valid
+- `405` if the following relation does not exist
+
+#### `GET /api/follow?follower=FOLLOWER&followee=FOLLOWEE` - Returns whether the following relation exists
+
+**Returns**
+
+- A success message
+- True if the relation exists, False otherwise
+
+**Throws**
+
+- `400` if either param is not provided or not in right format
+
+#### `GET /api/follow/following/:userId` - Get all items that a user is following
+
+**Returns**
+
+- A success message
+- An array of all other users that the given user is following
+
+**Throws**
+
+- `404` if the userId does not exist
+
+#### `GET /api/follow/follwers/:userId?` - Get all users that are following the specified user
+
+**Returns**
+
+- A success message
+- An array of all other users that are following the given user
+
+**Throws**
+
+- `404` if the userId does not exist
+
+#### `GET /api/vote/user?userId=USER` - Get all voted content for a specific user
+
+**Returns**
+
+- A success message
+- An array of Freets that a user has voted for
+
+**Throws**
+
+- `404` if the userID does not exist
+
+#### `POST /api/vote` - Change the vote a user gives to a specific item
+
+**Body**
+
+- `user` _{userId}_ - The ID of the user
+- `Freet` _{freetId}_ - The ID of the Freet
+- `vote` _{number}_ - The number representing the vote type (upvote, downvote, no vote)
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `400` if any parameter is not included or in the wrong format
+- `404` if the userId or freetId are not valid
+
+#### `GET /api/vote/freet?freetId=FREET` - Get all votes on a specific Freet
+
+**Returns**
+
+- A success message
+- An array of users that upvoted the Freet and an array of users that downvoted the Freet
+
+**Throws**
+
+- `404` if the freetId is not valid
+- `400` if the parameter is not provided or in the proper format
+
+#### `POST /api/multifeed` - Create a multifeed
+
+**Body**
+
+- `name` _{string}_ - the name of the multifeed
+- `user` _{userId}_ - the ID of the user creating the multifeed
+- `content` _{Array<userId>}_ - the followed users to include in the multifeed
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `404` if the userId is not valid
+- `400` if any parameters are not provided or not in proper format
+- `406` if the name is already being used in another multifeed from the same user
+- `406` if name or content are empty
+
+#### `DELETE /api/multifeed/:multifeedId?` - Delete a multifeed
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user is not the user that created the multifeed
+- `409` if the multifeedId is not valid
+
+#### `PUT /api/multifeed/:multifeedId?` - Modify a multifeed
+
+**Body** _(no need to add fields that are not being changed)_
+
+- `name` _{string}_ - the name of the multifeed
+- `content` _{Array<userId>}_ - the followed users to include in the multifeed
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user is not the user that created the multifeed
+- `406` if the name is already being used in another multifeed from the same user
+- `406` if name or content are empty
+
+#### `GET /api/multifeed/user?userId=USER` - Get all multifeeds associated with a user
+
+**Returns**
+
+- A success message
+- An array of the multifeed IDs made by the given user
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user being searched for is not the user logged in
+
+#### `GET /api/multifeed/:multifeedId?` - Get a specific multifeed
+
+**Returns**
+
+- A success message
+- The name of the multifeed and the array of users being followed
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user being searched for is not the user logged in
+- `404` if the multifeedId is not valid
