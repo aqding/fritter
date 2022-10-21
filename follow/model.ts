@@ -8,8 +8,8 @@ import type { User } from "user/model";
 
 export type Follow = {
   _id: Types.ObjectId;
-  follower: Types.ObjectId;
-  followee: Types.ObjectId;
+  follower: User;
+  followee: User;
   dateCreated: Date;
 };
 

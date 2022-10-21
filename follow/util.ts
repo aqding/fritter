@@ -35,6 +35,8 @@ const constructFollowResponse = (
     }),
   };
 
+  //   delete followCopy.followee.password;
+
   return {
     _id: followCopy._id.toString(),
     follower: followCopy.follower.toString(),

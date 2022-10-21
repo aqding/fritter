@@ -11,6 +11,7 @@ class FollowCollection {
    * @param {string} followee - The id of the followee user
    * @returns {Promise<HydratedDocument<Follow>} - The newly created follow relation
    */
+
   static async addOne(
     follower: Types.ObjectId | string,
     followee: Types.ObjectId | string
@@ -32,18 +33,14 @@ class FollowCollection {
   static async findAllFollowing(
     user: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Follow>>> {
-    const following = await FollowModel.find({ follower: user }).populate(
-      "followee"
-    );
+    const following = await FollowModel.find({ follower: user });
     return following;
   }
 
   static async findAllFollowers(
     user: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Follow>>> {
-    const followers = await FollowModel.find({ followee: user }).populate(
-      "follower"
-    );
+    const followers = await FollowModel.find({ followee: user });
     return followers;
   }
 
