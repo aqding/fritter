@@ -4,8 +4,10 @@ import type { Follow } from "./model";
 
 type FollowResponse = {
   _id: string;
-  follower: string;
-  followee: string;
+  followerId: string;
+  followerName: string;
+  followeeId: string;
+  followeeName: string;
   dateCreated: string;
 };
 
@@ -36,11 +38,13 @@ const constructFollowResponse = (
   };
 
   //   delete followCopy.followee.password;
-
+  console.log(followCopy);
   return {
     _id: followCopy._id.toString(),
-    follower: followCopy.follower.toString(),
-    followee: followCopy.followee.toString(),
+    followerId: followCopy.follower._id.toString(),
+    followerName: followCopy.follower.username.toString(),
+    followeeId: followCopy.followee._id.toString(),
+    followeeName: followCopy.followee.username.toString(),
     dateCreated: formatDate(follow.dateCreated),
   };
 };

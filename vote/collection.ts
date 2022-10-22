@@ -29,14 +29,20 @@ class VoteCollection {
   static async getVoteForFreet(
     freetId: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Vote>>> {
-    const votes = VoteModel.find({ freetId: freetId });
+    const votes = VoteModel.find({ freetId: freetId }).populate([
+      "voterId",
+      "freetId",
+    ]);
     return votes;
   }
 
   static async getVoteForUser(
     userId: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Vote>>> {
-    const votes = VoteModel.find({ voterId: userId });
+    const votes = VoteModel.find({ voterId: userId }).populate([
+      "voterId",
+      "freetId",
+    ]);
     return votes;
   }
 }

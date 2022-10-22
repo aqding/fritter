@@ -27,20 +27,29 @@ class FollowCollection {
     follower: Types.ObjectId | string,
     followee: Types.ObjectId | string
   ): Promise<HydratedDocument<Follow>> {
-    return FollowModel.findOne({ follower: follower, followee: followee });
+    return FollowModel.findOne({
+      follower: follower,
+      followee: followee,
+    });
   }
 
   static async findAllFollowing(
     user: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Follow>>> {
-    const following = await FollowModel.find({ follower: user });
+    const following = await FollowModel.find({ follower: user }).populate([
+      "follower",
+      "followee",
+    ]);
     return following;
   }
 
   static async findAllFollowers(
     user: Types.ObjectId | string
   ): Promise<Array<HydratedDocument<Follow>>> {
-    const followers = await FollowModel.find({ followee: user });
+    const followers = await FollowModel.find({ followee: user }).populate([
+      "follower",
+      "followee",
+    ]);
     return followers;
   }
 

@@ -8,8 +8,8 @@ import type { Freet } from "freet/model";
 
 export type Vote = {
   _id: Types.ObjectId;
-  voterId: Types.ObjectId;
-  freetId: Types.ObjectId;
+  voterId: User;
+  freetId: Freet;
   vote: number;
   dateModified: Date;
 };
