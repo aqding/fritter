@@ -63,7 +63,10 @@ const isUsersExist = async (
  * req.param.userId field exists.
  */
 const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
-  const user = await UserCollection.findOneByUserId(req.params.userId);
+  const validUser = Types.ObjectId.isValid(req.params.userId);
+  const user = validUser
+    ? await UserCollection.findOneByUserId(req.params.userId)
+    : "";
 
   if (!user) {
     res.status(404).json({
@@ -71,9 +74,10 @@ const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
         userNotFound: "the user ID could not be found.",
       },
     });
-  } else {
-    next();
+    return;
   }
+
+  next();
 };
 
 /**

@@ -44,6 +44,9 @@ const formsAndHandlers = {
   "delete-follow": deleteFollow,
   "get-following": getFollowing,
   "get-followers": getFollowers,
+  "put-vote": putVote,
+  "get-freet-votes": getFreetVotes,
+  "get-user-votes": getUserVotes,
 };
 
 // Attach handlers to forms
