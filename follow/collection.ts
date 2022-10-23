@@ -11,7 +11,6 @@ class FollowCollection {
    * @param {string} followee - The id of the followee user
    * @returns {Promise<HydratedDocument<Follow>} - The newly created follow relation
    */
-
   static async addOne(
     follower: Types.ObjectId | string,
     followee: Types.ObjectId | string

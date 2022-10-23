@@ -47,6 +47,11 @@ const formsAndHandlers = {
   "put-vote": putVote,
   "get-freet-votes": getFreetVotes,
   "get-user-votes": getUserVotes,
+  "get-multifeed": getMultifeed,
+  "get-multifeed-by-user": getMultifeedByUser,
+  "create-multifeed": createMultifeed,
+  "update-multifeed": updateMultifeed,
+  "delete-multifeed": deleteMultifeed,
 };
 
 // Attach handlers to forms

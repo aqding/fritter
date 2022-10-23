@@ -8,6 +8,7 @@
     <script src="/scripts/user.js"></script>
     <script src="/scripts/follow.js"></script>
     <script src="/scripts/vote.js"></script>
+    <script src="/scripts/multifeed.js"></script>
     <script src="/scripts/index.js"></script>
   </head>
 
@@ -207,7 +208,74 @@
             </div>
             <input type="submit" value="Get User Votes" />
           </form>
+
+          <form id="get-multifeed">
+            <h3>Get Multifeed</h3>
+            <div>
+              <label for="multifeedId">Multifeed ID:</label>
+              <input id="multifeedId" name="multifeedId" />
+            </div>
+            <input type="submit" value="Get Multifeed" />
+          </form>
+
+          <form id="get-multifeed-by-user">
+            <h3>Get Multifeed by User</h3>
+            <div>
+              <label for="author">User ID:</label>
+              <input id="author" name="author" />
+            </div>
+            <input type="submit" value="Get Multifeed by User" />
+          </form>
+  
+          <form id="create-multifeed">
+            <h3>Create Multifeed</h3>
+            <div>
+              <label for="name">Multifeed Name:</label>
+              <input id="name" name="name" />
+            </div>
+            <div>
+              <label for="content">Array of Users:</label>
+              <input id="content" name="content" />
+            </div>
+  
+            <input type="submit" value="Create Multifeed" />
+          </form>
+
+  
+          <form id="update-multifeed">
+            <h3>Update Multifeed</h3>
+
+            <div>
+              <label for="multifeedId">Multifeed Id:</label>
+              <input id="multifeedId" name="multifeedId" />
+            </div>
+            <div>
+              <label for="name">Multifeed Name:</label>
+              <input id="name" name="name" />
+            </div>
+            <div>
+              <label for="content">Array of Users:</label>
+              <input id="content" name="content" />
+            </div>
+  
+            <input type="submit" value="Update Multifeed" />
+          </form>
+
+          <form id="delete-multifeed">
+            <h3>Delete Multifeed</h3>
+
+            <div>
+              <label for="multifeedId">Multifeed Id:</label>
+              <input id="multifeedId" name="multifeedId" />
+            </div>
+  
+            <input type="submit" value="Delete Multifeed" />
+          </form>
         </div>
+
+
+      </div>
+
       </section>
       <section>
         <h2>Response:</h2>
