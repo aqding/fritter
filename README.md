@@ -327,9 +327,10 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if follower and followee are not in the right format or not in req
+- `403` if the user is not logged in or the follower.
 - `404` if either userId is not valid
 - `405` if the following relation already exists
+- `409` if the IDs are the same
 
 #### `DELETE /api/follow` - Deletes a following relation
 
@@ -344,7 +345,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if follower and followee are not in the right format or not in req
+- `403` if the user is not logged in or the follower.
 - `404` if either userId is not valid
 - `405` if the following relation does not exist
 
@@ -357,7 +358,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if either param is not provided or not in right format
+- `404` if either param is not provided or not in right format
 
 #### `GET /api/follow/following/:userId` - Get all items that a user is following
 
@@ -392,7 +393,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 - `404` if the userID does not exist
 
-#### `POST /api/vote` - Change the vote a user gives to a specific item
+#### `PUT /api/vote` - Change the vote a user gives to a specific item
 
 **Body**
 
@@ -406,10 +407,10 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if any parameter is not included or in the wrong format
-- `404` if the userId or freetId are not valid
+- `403` if the user is not logged in or not the voter
+- `404` if user ID or freet Id is not valid or provided, or if vote is not in {-1, 0, 1}
 
-#### `GET /api/vote/freet?freetId=FREET` - Get all votes on a specific Freet
+#### `GET /api/vote/free/:freetId` - Get all votes on a specific Freet
 
 **Returns**
 
@@ -419,7 +420,6 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `404` if the freetId is not valid
-- `400` if the parameter is not provided or in the proper format
 
 #### `POST /api/multifeed` - Create a multifeed
 
@@ -435,10 +435,9 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `404` if the userId is not valid
-- `400` if any parameters are not provided or not in proper format
-- `406` if the name is already being used in another multifeed from the same user
-- `406` if name or content are empty
+- `404` if any ID provided is not valid or the name is not provided
+- `403` if the user is not logged in
+- `405` if a multifeed made by the user has the provided name already
 
 #### `DELETE /api/multifeed/:multifeedId?` - Delete a multifeed
 
@@ -448,9 +447,8 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `403` if the user is not logged in
-- `403` if the user is not the user that created the multifeed
-- `409` if the multifeedId is not valid
+- `403` if the user is not logged in or the owner of the multifeed
+- `404` if the multifeed ID is not valid or does not exists
 
 #### `PUT /api/multifeed/:multifeedId?` - Modify a multifeed
 
@@ -465,12 +463,11 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `403` if the user is not logged in
-- `403` if the user is not the user that created the multifeed
-- `406` if the name is already being used in another multifeed from the same user
-- `406` if name or content are empty
+- `403` if the user is not logged in or the owner of the multifeed
+- `404` if the multifeed ID is not valid, if any IDs passed in are not valid, or if the name is not valid
+- `405` if a multifeed made by the user has the provided name already
 
-#### `GET /api/multifeed/user?userId=USER` - Get all multifeeds associated with a user
+#### `GET /api/multifeed/user?author=USER` - Get all multifeeds associated with a user
 
 **Returns**
 
@@ -479,8 +476,8 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `403` if the user is not logged in
-- `403` if the user being searched for is not the user logged in
+- `403` if the user is not logged in or the owner of the multifeed
+- `404` if the userID is not valid
 
 #### `GET /api/multifeed/:multifeedId?` - Get a specific multifeed
 
@@ -491,6 +488,5 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `403` if the user is not logged in
-- `403` if the user being searched for is not the user logged in
+- `403` if the user is not logged in or the owner of the multifeed
 - `404` if the multifeedId is not valid
